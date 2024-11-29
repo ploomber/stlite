@@ -157,6 +157,7 @@ export interface OutMessageConsole extends OutMessageBase {
   type: "event:console";
   data: {
     message: string;
+    type: "info" | "error";
   };
 }
 
