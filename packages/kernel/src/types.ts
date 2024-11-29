@@ -152,6 +152,14 @@ interface OutMessageBase {
   type: string;
   data?: unknown;
 }
+
+export interface OutMessageConsole extends OutMessageBase {
+  type: "event:console";
+  data: {
+    message: string;
+  };
+}
+
 export interface OutMessageStartEvent extends OutMessageBase {
   type: "event:start";
 }
@@ -188,7 +196,8 @@ export type OutMessage =
   | OutMessageErrorEvent
   | OutMessageLoadedEvent
   | OutMessageWebSocketBack
-  | OutMessageModuleAutoLoadEvent;
+  | OutMessageModuleAutoLoadEvent
+  | OutMessageConsole;
 
 export interface ModuleAutoLoadMessageBase {
   type: string;

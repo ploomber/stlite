@@ -374,6 +374,10 @@ export class StliteKernel {
    */
   private _processWorkerMessage(msg: OutMessage, port?: MessagePort): void {
     switch (msg.type) {
+      case "event:console": {
+        window.parent.postMessage(msg.data.message, "*");
+        break;
+      }
       case "event:start": {
         this._worker.postMessage({
           type: "initData",

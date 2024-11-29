@@ -2,7 +2,6 @@
   "name": "@stlite/sharing",
   "version": "0.69.0",
   "private": true,
-  "homepage": "https://share.stlite.net/",
   "dependencies": {
     "@craco/craco": "^7.0.0",
     "@stlite/common-react": "^0.69.0",
@@ -23,7 +22,9 @@
   },
   "scripts": {
     "start": "cross-env REACT_APP_EDITOR_APP_ORIGIN=${REACT_APP_EDITOR_APP_ORIGIN:=http://localhost:3030} BROWSER=none craco start",
-    "build": "craco build",
+    "build": "node set-homepage.js && craco build",
+    "build:dev": "cross-env REACT_APP_ENV=development REACT_APP_EDITOR_APP_ORIGIN=${REACT_APP_EDITOR_APP_ORIGIN:=http://localhost:3000} npm run build",
+    "build:prod": "cross-env REACT_APP_ENV=production REACT_APP_EDITOR_APP_ORIGIN=${REACT_APP_EDITOR_APP_ORIGIN:=http://localhost:3000} npm run build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -44,5 +45,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "/_sharing"
 }

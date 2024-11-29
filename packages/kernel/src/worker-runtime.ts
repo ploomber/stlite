@@ -93,10 +93,17 @@ export function startWorkerEnv(
 
     postProgressMessage("Loading Pyodide.");
 
+    function console_log(message: string) {
+      postMessage({
+        type: "event:console",
+        data: { message },
+      });
+    }
+
     console.debug("Loading Pyodide");
     pyodide = await initPyodide(pyodideUrl, {
-      stdout: console.log,
-      stderr: console.error,
+      stdout: console_log,
+      stderr: console_log,
     });
     console.debug("Loaded Pyodide");
 
@@ -266,6 +273,13 @@ streamlit.logger._loggers = {}
 `);
     // Then configure the logger.
     const logCallback = (levelno: number, msg: string) => {
+      if (levelno >= 20) {
+        postMessage({
+          type: "event:console",
+          data: { message: msg },
+        });
+      }
+
       if (levelno >= 40) {
         console.error(msg);
       } else if (levelno >= 30) {
