@@ -158,6 +158,7 @@ export interface OutMessageConsole extends OutMessageBase {
   data: {
     message: string;
     type: "info" | "error";
+    code?: string;
   };
 }
 

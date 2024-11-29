@@ -93,10 +93,14 @@ export function startWorkerEnv(
 
     postProgressMessage("Loading Pyodide.");
 
-    function console_log(message: string, type: "info" | "error" = "info") {
+    function console_log(
+      message: string,
+      type: "info" | "error" = "info",
+      code?: string,
+    ) {
       postMessage({
         type: "event:console",
-        data: { message, type },
+        data: { message, type, code },
       });
     }
 
@@ -221,7 +225,11 @@ export function startWorkerEnv(
         );
         console.debug("Installed the wheels and the requirements");
       } catch (error) {
-        console_log(`Package installation error: ${error}`, "error");
+        console_log(
+          `Package installation error: ${error}`,
+          "error",
+          "MICROPIP-INSTALL-ERROR",
+        );
         throw error;
       }
     } else {
